@@ -4,7 +4,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GL/wglew.h>
-
+#include<SFML\Graphics.hpp>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -24,12 +24,24 @@ using namespace glm;
 class Game
 {
 public:
-	Game();
+	Game(sf::Font font);
 	Game(sf::ContextSettings settings);
 	~Game();
 	void run();
 private:
 	Window window;
+	double offset1 = 0;
+	double offset2 = 0;
+	double offset3 = 0;
+	double offset4 = 0;
+	double offset5 = 0;
+
+	double lives = 3;
+	double blockSpeed = 0.01;
+
+	sf::Font m_comicSans;
+	sf::Text m_lives;
+
 	bool isRunning = false;
 	void initialize();
 	void update();
@@ -37,6 +49,7 @@ private:
 	void renderPlayer(mat4 &modelRef);
 	void render(mat4 &modelRef);
 	void unload();
+
 };
 
 #endif

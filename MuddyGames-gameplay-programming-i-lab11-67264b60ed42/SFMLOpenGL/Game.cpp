@@ -33,15 +33,15 @@ unsigned char* img_data;		// image data
 
 mat4 mvp, projection, view, model, modelTwo, modelThree, modelFour, modelFive, modelSix;			// Model View Projection
 
-Game::Game() : 
-	window(VideoMode(800, 600), 
-	"Introduction to OpenGL Texturing")
+Game::Game(sf::Font font) :
+	window(VideoMode(800, 600),
+	"Real Cool Game")
 {
 }
 
 Game::Game(sf::ContextSettings settings) : 
 	window(VideoMode(800, 600), 
-	"Introduction to OpenGL Texturing", 
+	"Super Cool Game", 
 	sf::Style::Default, 
 	settings)
 {
@@ -101,13 +101,13 @@ void Game::run()
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
 				// Set Model Translation
-				model = translate(model, glm::vec3(-0.1, 0, 0)); // Translate
+				model = translate(model, glm::vec3(-0.2, 0, 0)); // Translate
 			}
 
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
 				// Set Model Translation
-				model = translate(model, glm::vec3(0.1, 0, 0)); // Translate
+				model = translate(model, glm::vec3(0.2, 0, 0)); // Translate
 			}
 
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -124,8 +124,9 @@ void Game::run()
 		}
 		
 		update();
-		render(model);
-		render(modelTwo);
+			render(model);
+			render(modelTwo);
+		
 	}
 
 #if (DEBUG >= 2)
@@ -345,11 +346,17 @@ void Game::initialize()
 	);
 	model = translate(model, vec3(0, 0, 0));
 
-	modelTwo = translate(modelTwo, vec3(1, 0, -10));
-	modelThree = translate(modelTwo, vec3(2, 0, -10));
-	modelFour = translate(modelTwo, vec3(3, 0, -10));
-	modelFive = translate(modelTwo, vec3(4, 0, -10));
-	modelSix = translate(modelTwo, vec3(5, 0, -10));
+	offset1 = rand() % 25 + 1;
+	offset2 = rand() % 25 + 1;
+	offset3 = rand() % 25 + 1;
+	offset4 = rand() % 25 + 1;
+	offset5 = rand() % 25 + 1;
+
+	modelTwo = translate(modelTwo, vec3(-5, 0, (-30 - offset1)));
+	modelThree = translate(modelThree, vec3(-2.5, 0, (-30 - offset2)));
+	modelFour = translate(modelFour, vec3(0, 0, (-30 - offset3)));
+	modelFive = translate(modelFive, vec3(2.5, 0, (-30 - offset4)));
+	modelSix = translate(modelSix, vec3(5, 0, (-30 - offset5)));
 	// Enable Depth Test
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -363,7 +370,75 @@ void Game::update()
 #endif
 	// Update Model View Projection
 	mvp = projection * view * model;
-	model[3].x = 0;
+	modelTwo[3].z = modelTwo[3].z + blockSpeed;
+	modelThree[3].z = modelThree[3].z + blockSpeed;
+	modelFour[3].z = modelFour[3].z + blockSpeed;
+	modelFive[3].z = modelFive[3].z + blockSpeed;
+	modelSix[3].z = modelSix[3].z + blockSpeed;
+	srand(time(NULL));
+	offset1 = rand() % 20 + 1;
+	offset2 = rand() % 20 + 1;
+	offset3 = rand() % 20 + 1;
+	offset4 = rand() % 20 + 1;
+	offset5 = rand() % 20 + 1;
+
+	if (modelTwo[3].z >= 10)
+	{
+		blockSpeed = blockSpeed + 0.005;
+		modelTwo[3].z = (-30 - offset1);
+	}
+	if (modelThree[3].z >= 10)
+	{
+		modelThree[3].z = (-30 - offset2);
+	}
+	if (modelFour[3].z >= 10)
+	{
+		modelFour[3].z = (-30 - offset3);
+	}
+	if (modelFive[3].z >= 10)
+	{
+		modelFive[3].z = (-30 - offset4);
+	}
+	if (modelSix[3].z >= 10)
+	{
+		modelSix[3].z = (-30 - offset5);
+	}
+	// Collision detection
+	if (model[3].x >= modelTwo[3].x - 1.4 && model[3].x <= modelTwo[3].x + 1.4 && model[3].z >= modelTwo[3].z - 1 && model[3].z <= modelTwo[3].z + 2 && model[3].y >= modelTwo[3].y - 1 && model[3].y <= modelTwo[3].y + 1)
+	{
+		lives = lives - 1;
+		model[3].y = 5;
+	}
+	if (model[3].x >= modelThree[3].x - 1.4 && model[3].x <= modelThree[3].x + 1.4 && model[3].z >= modelThree[3].z - 1 && model[3].z <= modelThree[3].z + 2 && model[3].y >= modelThree[3].y - 1 && model[3].y <= modelThree[3].y + 1)
+	{
+		lives = lives - 1;
+		model[3].y = 5;
+	}
+	if (model[3].x >= modelFour[3].x - 1.4 && model[3].x <= modelFour[3].x + 1.4 && model[3].z >= modelFour[3].z - 1 && model[3].z <= modelFour[3].z + 2 && model[3].y >= modelFour[3].y - 1 && model[3].y <= modelFour[3].y + 1)
+	{
+		lives = lives - 1;
+		model[3].y = 5;
+	}
+	if (model[3].x >= modelFive[3].x - 1.4 && model[3].x <= modelFive[3].x + 1.4 && model[3].z >= modelFive[3].z - 1 && model[3].z <= modelFive[3].z + 2 && model[3].y >= modelFive[3].y - 1 && model[3].y <= modelFive[3].y + 1)
+	{
+		lives = lives - 1;
+		model[3].y = 5;
+	}
+	if (model[3].x >= modelSix[3].x - 1.4 && model[3].x <= modelSix[3].x + 1.4 && model[3].z >= modelSix[3].z - 1 && model[3].z <= modelSix[3].z + 2 && model[3].y >= modelSix[3].y - 1 && model[3].y <= modelSix[3].y + 1)
+	{
+		lives = lives - 1;
+		model[3].y = 5;
+	}
+	if (model[3].y != 0)
+	{
+		model[3].y = model[3].y - 0.005;
+	}
+	if (model[3].y <= 0.1 && model[3].y >= -0.1)
+	{
+		model[3].y = 0;
+	}
+
+	/*model[3].x = 0;*/
 }
 
 void Game::render(mat4 &modelRef)
@@ -373,6 +448,7 @@ void Game::render(mat4 &modelRef)
 	DEBUG_MSG("Render Loop...");
 #endif
 
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	renderPlayer(model);
@@ -381,8 +457,14 @@ void Game::render(mat4 &modelRef)
 	renderCubes(modelFour);
 	renderCubes(modelFive);
 	renderCubes(modelSix);
-
-	window.display();
+	if (lives == 0)
+	{
+		window.setTitle("GAME OVER");
+	}
+	if (lives > 0)
+	{
+		window.display();
+	}
 
 	//Disable Arrays
 	glDisableVertexAttribArray(positionID);
@@ -390,6 +472,7 @@ void Game::render(mat4 &modelRef)
 	glDisableVertexAttribArray(uvID);
 	
 }
+
 void Game::renderCubes(mat4 &modelRef)
 {
 	mvp = projection * view * modelRef;
@@ -420,6 +503,7 @@ void Game::renderCubes(mat4 &modelRef)
 	//Draw Element Arrays
 	glDrawElements(GL_TRIANGLES, 3 * INDICES, GL_UNSIGNED_INT, NULL);
 }
+
 void Game::renderPlayer(mat4 &modelRef)
 {
 	mvp = projection * view * modelRef;
