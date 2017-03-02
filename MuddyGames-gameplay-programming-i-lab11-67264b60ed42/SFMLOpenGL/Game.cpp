@@ -70,57 +70,57 @@ void Game::run()
 				isRunning = false;
 			}
 
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			{
-				// Set Model Rotation
-				model = rotate(model, 0.01f, glm::vec3(0, 1, 0)); // Rotate
-			}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			//{
+			//	// Set Model Rotation
+			//	model = rotate(model, 0.01f, glm::vec3(0, 1, 0)); // Rotate
+			//}
 
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			{
-				// Set Model Rotation
-				model = rotate(model, -0.01f, glm::vec3(0, 1, 0)); // Rotate
-			}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			//{
+			//	// Set Model Rotation
+			//	model = rotate(model, -0.01f, glm::vec3(0, 1, 0)); // Rotate
+			//}
 
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			{
-				// Set Model Rotation
-				model = rotate(model, -0.01f, glm::vec3(1, 0, 0)); // Rotate
-			}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			//{
+			//	// Set Model Rotation
+			//	model = rotate(model, -0.01f, glm::vec3(1, 0, 0)); // Rotate
+			//}
 
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			{
-				// Set Model Rotation
-				model = rotate(model, 0.01f, glm::vec3(1, 0, 0)); // Rotate
-			}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			//{
+			//	// Set Model Rotation
+			//	model = rotate(model, 0.01f, glm::vec3(1, 0, 0)); // Rotate
+			//}
 			if (event.type == Event::Closed)
 			{
 				isRunning = false;
 			}
 
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && model[3].x > -5)
 			{
 				// Set Model Translation
-				model = translate(model, glm::vec3(-0.2, 0, 0)); // Translate
+				model = translate(model, glm::vec3(-0.3, 0, 0)); // Translate
 			}
 
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && model[3].x < 5)
 			{
 				// Set Model Translation
-				model = translate(model, glm::vec3(0.2, 0, 0)); // Translate
+				model = translate(model, glm::vec3(0.3, 0, 0)); // Translate
 			}
 
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-			{
-				// Set Model Translation
-				model = translate(model, glm::vec3(0, 0.1, 0)); // Translation
-			}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			//{
+			//	// Set Model Translation
+			//	model = translate(model, glm::vec3(0, 0.1, 0)); // Translation
+			//}
 
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			{
-				// Set Model Translation
-				model = translate(model, glm::vec3(0, -0.1, 0)); // Translation
-			}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			//{
+			//	// Set Model Translation
+			//	model = translate(model, glm::vec3(0, -0.1, 0)); // Translation
+			//}
 		}
 		
 		update();
